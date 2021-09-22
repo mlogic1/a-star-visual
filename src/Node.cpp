@@ -1,12 +1,11 @@
 #include "Node.h"
-#include <cmath>
 
-Node::Node(bool obstacle, int x, int y, bool isStart, bool isTarget) :
-	m_isObstacle(obstacle),
-	m_isStart(isStart),
-	m_isTarget(isTarget),
+Node::Node(int x, int y, bool obstacle, bool start, bool target):
 	m_x(x),
-	m_y(y)
+	m_y(y),
+	m_isObstacle(obstacle),
+	m_isStart(start),
+	m_isTarget(target)
 {
 
 }
@@ -51,23 +50,18 @@ int Node::GetY() const
 	return m_y;
 }
 
+Node* Node::GetParent() const
+{
+	return m_parent;
+}
+
 void Node::SetCost(int g, int h)
 {
 	m_gCost = g;
 	m_hCost = h;
 }
 
-void Node::SetParent(Node* n)
+void Node::SetParent(Node* parent)
 {
-	m_parent = n;
-}
-
-const Node* Node::GetParent() const
-{
-	return m_parent;
-}
-
-int Node::DistanceToNode(const Node& other) const
-{
-	return abs(m_x - other.m_x) + abs(m_y - other.m_y);
+	m_parent = parent;
 }
